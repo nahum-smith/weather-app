@@ -1,24 +1,33 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
-import './Root.css'
-import Button from 'material-ui/Button'
+import HeaderBar from './HeaderBar/HeaderBar'
+import MainContainer from './MainContainer/MainContainer'
+import { withStyles } from 'material-ui/styles'
+import bg from './bg.jpeg'
 
+const styles = (theme) => ({
+  rootContainer: {
+    textAlign: 'center',
+    height: '100vh'
+  },
+  mainContainer: {
+    height: '100vh',
+    backgroundImage: `url(${bg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '100% 100%'
+  }
+})
 class Root extends Component {
   render () {
+    const { classes } = this.props
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
-        </header>
-        <p className='App-intro'>
-          <Button raised color='primary'>
-            Hello World
-          </Button>
-        </p>
+      <div className={ classes.rootContainer }>
+        <HeaderBar />
+        <div className={classes.mainContainer}>
+          <MainContainer />
+        </div>
       </div>
     )
   }
 }
 
-export default Root
+export default withStyles(styles)(Root)
