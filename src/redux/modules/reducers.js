@@ -39,10 +39,10 @@ export const fetchandHandleWeather = (inputText) => {
     basicRequest(inputText, true)
       .then((response) => {
         console.info(response)
-        dispatch(fetchingWeatherSuccess())
+        setTimeout(() => dispatch(fetchingWeatherSuccess()), 2000)
       })
       .catch((err) => {
-
+        dispatch(fetchingWeatherFailure(err))
       })
   }
 }
@@ -74,6 +74,13 @@ export const application = (state = initialState, action) => {
       return {
         ...state,
         inputText: '',
+        isFetching: false
+      }
+    case FETCHING_WEATHER_FAILURE:
+      return {
+        ...state,
+        inputText: '',
+        error: action.error
       }
     default:
       return state

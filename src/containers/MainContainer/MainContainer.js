@@ -24,6 +24,7 @@ const styles = (theme) => ({
 class MainContainer extends React.Component {
   handleSubmitText = (text) => {
     this.props.fetchandHandleWeather(text)
+    this.props.history.push('/forecast')
   }
   render () {
     const { classes, inputText } = this.props

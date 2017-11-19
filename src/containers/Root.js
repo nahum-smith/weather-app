@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import HeaderBar from './HeaderBar/HeaderBar'
 import MainContainer from './MainContainer/MainContainer'
+import ForecastContainer from './ForecastContainer/ForecastContainer'
 import { withStyles } from 'material-ui/styles'
 import bg from './bg.jpeg'
 
@@ -21,9 +23,10 @@ class Root extends Component {
     const { classes } = this.props
     return (
       <div className={ classes.rootContainer }>
-        <HeaderBar />
+        <Route path='/' component={HeaderBar} />
         <div className={classes.mainContainer}>
-          <MainContainer />
+          <Route path='/' exact component={MainContainer} />
+          <Route path='/forecast' exact component={ForecastContainer} />
         </div>
       </div>
     )

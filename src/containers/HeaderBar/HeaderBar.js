@@ -41,6 +41,7 @@ class ButtonAppBar extends React.Component {
   }
   handleSubmitText = (text) => {
     this.props.fetchandHandleWeather(text)
+    this.props.history.push('/forecast')
   }
   render () {
     const { classes, updateInputText, inputText } = this.props
