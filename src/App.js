@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import Root from './containers/Root'
 

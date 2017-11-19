@@ -1,4 +1,4 @@
-import * as reducers from './reducers/index'
+import * as reducers from './modules/index'
 import logger from 'redux-logger'
 import { loadState, saveState } from '../localStorage/localStorage'
 import throttle from 'lodash/throttle'

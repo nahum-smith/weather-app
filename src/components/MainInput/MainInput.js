@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actionCreators from '../../redux/modules/reducers'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import TextField from 'material-ui/TextField'
@@ -32,31 +35,44 @@ const styles = theme => ({
   },
 });
 
-function MainInputField (props) {
-  const { classes } = props
-
-  return (
-    <div className={classes.container}>
-      <TextField
-        defaultValue="Medford, New York"
-        InputProps={{
-          disableUnderline: true,
-          classes: {
-            root: classes.textFieldRoot,
-            input: classes.textFieldInput,
-          },
-        }}
-        InputLabelProps={{
-          shrink: true,
-          className: classes.textFieldFormLabel,
-        }}
-      />
-    </div>
-  )
+class MainInputField extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    inputText: PropTypes.string.isRequired,
+    updateInputText: PropTypes.func.isRequired,
+  }
+  render () {
+    const { classes, inputText, updateInputText } = this.props
+    console.info(this.props)
+    return (
+      <div className={classes.container}>
+        <TextField
+          placeholder="enter a city and state"
+          onChange={ (e) => updateInputText(e.target.value) }
+          value={inputText}
+          InputProps={{
+            disableUnderline: true,
+            classes: {
+              root: classes.textFieldRoot,
+              input: classes.textFieldInput,
+            },
+          }}
+          InputLabelProps={{
+            shrink: true,
+            className: classes.textFieldFormLabel,
+          }}
+        />
+      </div>
+    )
+  }
 }
 
-MainInputField.propTypes = {
-  classes: PropTypes.object.isRequired,
+const mapStateToProps = ({application}) => {
+  return {
+    inputText: application.inputText
+  }
 }
-
-export default withStyles(styles)(MainInputField)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(actionCreators, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MainInputField))

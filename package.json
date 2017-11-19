@@ -2,9 +2,7 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "react-scripts": "1.0.17"
-  },
+  "devDependencies": {},
   "dependencies": {
     "lodash": "^4.17.4",
     "material-ui": "^1.0.0-beta.20",
@@ -14,9 +12,11 @@
     "react-dom": "^16.1.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-scripts-cssmodules": "^1.0.171",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "url": "^0.11.0"
   },
   "scripts": {
     "start": "react-scripts start",

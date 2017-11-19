@@ -8,6 +8,9 @@ import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import MainInputField from '../../components/MainInput/MainInput'
 import './HeaderBar.css'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actionCreators from '../../redux/modules/reducers'
 
 const styles = theme => ({
   root: {
@@ -31,28 +34,41 @@ const styles = theme => ({
   },
 })
 
-function ButtonAppBar (props) {
-  const { classes } = props
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <img src={logo} className={'App-logo'} alt='logo' />
-          <Typography type="title" color="inherit" className={classes.titleFont}>
-            {'Weather or Not'}
-          </Typography>
-          <div className={classes.flex}>
-            <MainInputField />
-            <Button className={classes.submitButton} raised color="accent">{'Get Weather'}</Button>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
-  )
+class ButtonAppBar extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    handleSubmitText: PropTypes.func.isRequired,
+  }
+  handleSubmitText = (text) => {
+    this.props.fetchandHandleWeather(text)
+  }
+  render () {
+    const { classes, updateInputText, inputText } = this.props
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <img src={logo} className={'App-logo'} alt='logo' />
+            <Typography type="title" color="inherit" className={classes.titleFont}>
+              {'Weather or Not'}
+            </Typography>
+            <div className={classes.flex}>
+              <MainInputField />
+              <Button onClick={() => this.handleSubmitText(inputText)} className={classes.submitButton} raised color="accent">{'Get Weather'}</Button>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
 }
 
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+const mapStateToProps = ({application}) => {
+  return {
+    inputText: application.inputText
+  }
 }
-
-export default withStyles(styles)(ButtonAppBar)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(actionCreators, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ButtonAppBar))
