@@ -11,6 +11,7 @@ import './HeaderBar.css'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../../redux/modules/reducers'
+import { NavLink } from 'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -30,7 +31,12 @@ const styles = theme => ({
   },
   titleFont: {
     fontFamily: 'satisfy',
-    fontSize: '30px'
+    fontSize: '30px',
+    textTransform: 'none',
+    '&:hover': {
+      textDecoration: 'none',
+      backgroundColor: 'inherit'
+    }
   },
 })
 
@@ -40,7 +46,7 @@ class ButtonAppBar extends React.Component {
     handleSubmitText: PropTypes.func.isRequired,
   }
   handleSubmitText = (text) => {
-    this.props.fetchandHandleWeather(text)
+    this.props.fetchandHandleWeather(text, true)
     this.props.history.push('/forecast')
   }
   render () {
@@ -50,9 +56,9 @@ class ButtonAppBar extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <img src={logo} className={'App-logo'} alt='logo' />
-            <Typography type="title" color="inherit" className={classes.titleFont}>
-              {'Weather or Not'}
-            </Typography>
+            <Button onClick={() => this.props.history.push('/')} color='inherit' className={classes.titleFont}>
+              <Typography type="title" color="inherit" className={classes.titleFont}>{'Weather or Not'}</Typography>
+            </Button>
             <div className={classes.flex}>
               <MainInputField />
               <Button onClick={() => this.handleSubmitText(inputText)} className={classes.submitButton} raised color="accent">{'Get Weather'}</Button>

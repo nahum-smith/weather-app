@@ -5,8 +5,8 @@ import throttle from 'lodash/throttle'
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 
-const configureStore = () => {
-  const persistedState = loadState()
+const configureStore = (local = false) => {
+  const persistedState = local ? loadState() : {}
   const combinedReducers = combineReducers(reducers)
   const store = createStore(combinedReducers, persistedState, compose(
     applyMiddleware(thunk, logger),
